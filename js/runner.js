@@ -6,12 +6,20 @@ $(function() {
   snake.draw(container);
   
   $('#play').click(function() {
-    startGame(container, speed);
+    var interval;
+    playGame(container, speed);
   });
 });
 
-function startGame(container, speed) {
-  setInterval(function() {
-    snake.move(container);
-  }, speed);
+function playGame(container, speed) {
+  if ($('#play').html() === 'play') {
+    $('#play').html('pause');
+
+    interval = setInterval(function() {
+      snake.move(container);
+    }, speed);
+  } else {
+    $('#play').html('play');
+    clearInterval(interval);
+  }
 }

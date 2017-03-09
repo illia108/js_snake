@@ -3,15 +3,15 @@ body {
   text-align: center;
 }
 .btn-play, .btn-play:active, .btn-play:visited, .btn-play:focus {
-  padding: 20px 40px;
+  padding: .5rem 1rem;
   background: #009999;
   margin-bottom: 30px;
   text-transform: uppercase;
   font-size: 2rem;
   color: #ffffff;
   border: 1px solid #ffffff;
-  letter-spacing: 40px;
-  padding-left: 80px;
+  letter-spacing: 1rem;
+  padding-left: 2rem;
 }
 .btn-play:active, .btn-play:visited, .btn-play:focus {
   outline: none;
