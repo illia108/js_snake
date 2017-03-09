@@ -1,11 +1,10 @@
 .field {
   box-sizing: border-box;
-  border: 1px solid;
-  background: #000000;
+  border: 1px solid #ffffff;
   margin: 0 auto;
   
 }
 .field td {
-  border: 1px solid;
+  border: 1px solid #ffffff;
   background: #ff6666;
 }

@@ -4,6 +4,7 @@ var snake = {
     { x: 1, y: 9 },
     { x: 2, y: 9 }
   ],
+  direction: '',
   draw: function(container) {
     container.find('td').removeClass('snake');
     
@@ -18,19 +19,19 @@ var snake = {
   shift: function(property) {
     [].shift.call(property);
   },
-  move: function(container, direction) {
+  move: function(container) {
     var head = this.body[this.body.length - 1];
-    var step = this.takeStep(direction);
+    var step = this.takeStep();
     
     this.push(this.body, { x: head.x + step.shifX, y: head.y + step.shifY });
     this.shift(this.body);
     
     this.draw(container);
   },
-  takeStep: function(direction) {
+  takeStep: function() {
     var step;
     
-    switch(direction) {
+    switch(this.direction) {
       case 'right':
         step = { shifX: 1, shifY: 0 };
         break;
