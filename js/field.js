@@ -1,5 +1,5 @@
 var field = {
-  size: 10,
+  size: 12  ,
   makeRow: function() {
     var row = '<tr>';
     
@@ -18,6 +18,8 @@ var field = {
     
   },
   draw: function(container) {
+    container.children().remove();
+    
     for (var i = 0; i < this.size; i++) {
       container.append(this.makeRow());
     }

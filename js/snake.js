@@ -4,7 +4,7 @@ var snake = {
     { x: 1, y: field.size - 1 },
     { x: 2, y: field.size - 1 }
   ],
-  direction: '',
+  direction: 'right',
   draw: function(container) {
     container.find('td').removeClass('snake');
     
@@ -18,15 +18,13 @@ var snake = {
     var step = this.takeStep();
     
     if (this.isBlock(container, head, step)) {
-//      engine.gameOver();
-      console.log('Game Over!');
-      $('#play').click();
+      engine.gameOver(container);
     } else {
       [].push.call(this.body, { x: head.x + step.shiftX, y: head.y + step.shiftY });
+      [].shift.call(this.body);
     }
     
     this.eat(head, container);
-    
     this.draw(container);
   },
   isBlock: function(container, head, step) {
@@ -67,8 +65,8 @@ var snake = {
     if (head.x === rabbit.position.x && head.y === rabbit.position.y) {
       [].unshift.call(this.body, { x: rabbit.position.x, y: rabbit.position.y });
       rabbit.draw(container);
-    } else {
-      [].shift.call(this.body);
+      engine.score += 1;
+      $('#score').html(engine.score);
     }
   }
 }

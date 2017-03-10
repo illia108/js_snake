@@ -2,6 +2,7 @@ body {
   margin: 50px;
   text-align: center;
   font-family: Arial;
+  text-transform: uppercase;
 }
 .btn-play, .btn-play:active, .btn-play:visited, .btn-play:focus {
   padding: .5rem 1rem;
