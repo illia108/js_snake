@@ -1,53 +1,74 @@
 var snake = {
   body: [
-    { x: 0, y: 9 },
-    { x: 1, y: 9 },
-    { x: 2, y: 9 }
+    { x: 0, y: field.size - 1 },
+    { x: 1, y: field.size - 1 },
+    { x: 2, y: field.size - 1 }
   ],
   direction: '',
   draw: function(container) {
     container.find('td').removeClass('snake');
     
     $.each(this.body, function() {
-      container.find('tr:eq(' + this.y + ') td:eq(' + (this.x) + ')')
+      container.find('tr:eq(' + this.y + ') td:eq(' + this.x + ')')
         .addClass('snake');
     });
-  },
-  push: function(property, element) {
-    [].push.call(property, element);
-  },
-  shift: function(property) {
-    [].shift.call(property);
   },
   move: function(container) {
     var head = this.body[this.body.length - 1];
     var step = this.takeStep();
     
-    this.push(this.body, { x: head.x + step.shifX, y: head.y + step.shifY });
-    this.shift(this.body);
+    if (this.isBlock(container, head, step)) {
+//      engine.gameOver();
+      console.log('Game Over!');
+      $('#play').click();
+    } else {
+      [].push.call(this.body, { x: head.x + step.shiftX, y: head.y + step.shiftY });
+    }
+    
+    this.eat(head, container);
     
     this.draw(container);
+  },
+  isBlock: function(container, head, step) {
+    var nextCell = { x: head.x + step.shiftX, y: head.y + step.shiftY };
+    var size = field.size - 1;
+    
+    if (nextCell.x > size || nextCell.x < 0 || nextCell.y > size || nextCell.y < 0 ||
+        container.find('tr:eq(' + nextCell.y + ') td:eq(' + nextCell.x + ')')
+        .hasClass('snake')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   takeStep: function() {
     var step;
     
     switch(this.direction) {
       case 'right':
-        step = { shifX: 1, shifY: 0 };
+        step = { shiftX: 1, shiftY: 0 };
         break;
       case 'left':
-        step = { shifX: -1, shifY: 0 };
+        step = { shiftX: -1, shiftY: 0 };
         break;
       case 'up':
-        step = { shifX: 0, shifY: -1 };
+        step = { shiftX: 0, shiftY: -1 };
         break;
       case 'down':
-        step = { shifX: 0, shifY: 1 };
+        step = { shiftX: 0, shiftY: 1 };
         break;
       default:
-        step = { shifX: 1, shifY: 0 };
+        step = { shiftX: 1, shiftY: 0 };
     }
     
     return step;
+  },
+  eat: function(head, container) {
+    if (head.x === rabbit.position.x && head.y === rabbit.position.y) {
+      [].unshift.call(this.body, { x: rabbit.position.x, y: rabbit.position.y });
+      rabbit.draw(container);
+    } else {
+      [].shift.call(this.body);
+    }
   }
 }
